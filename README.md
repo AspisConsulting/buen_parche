@@ -5,6 +5,8 @@ Welcome to the buen_parche wiki!
 
 - Se manejará una sola rama de desarrollo, la rama main, para hacer cambios hacer una nueva rama basada en main y subir por medio de PR (La rama main está con protección).
 
+- Se manejará releases y tags en vez de ramas.
+
 - El proyecto está creado con un template de Clean Architecture, así que se debe tener en cuenta lo siguiente:
 
 Domain
