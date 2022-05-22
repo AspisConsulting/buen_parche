@@ -20,6 +20,8 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> ExternalLoginCallback(string returnUrl= null, string remoteError = null) { 
     
         returnUrl = returnUrl ?? Url.Content("~/");
+        await Task.FromResult(0);
+        return Redirect("");
     }
 
 }
