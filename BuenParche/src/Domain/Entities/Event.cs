@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace BuenParche.Domain.Entities;
 
-internal class Event
+public class Event
 {
 }

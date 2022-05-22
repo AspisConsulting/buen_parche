@@ -5,6 +5,7 @@ using BuenParche.Infrastructure.Persistence;
 using BuenParche.WebUI.Filters;
 using BuenParche.WebUI.Services;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -42,11 +43,11 @@ public class Startup
         services.AddRazorPages();
 
         // Customise default API behaviour
-        services.Configure<ApiBehaviorOptions>(options => 
+        services.Configure<ApiBehaviorOptions>(options =>
             options.SuppressModelStateInvalidFilter = true);
 
         // In production, the Angular files will be served from this directory
-        services.AddSpaStaticFiles(configuration => 
+        services.AddSpaStaticFiles(configuration =>
             configuration.RootPath = "ClientApp/dist");
 
         services.AddOpenApiDocument(configure =>
@@ -62,6 +63,12 @@ public class Startup
 
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
+        services.AddAuthentication().AddFacebook(facebookOptions =>
+        {
+            facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+        });
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,15 +115,15 @@ public class Startup
 
         app.UseSpa(spa =>
         {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+            // To learn more about options for serving an Angular SPA from ASP.NET Core,
+            // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+            spa.Options.SourcePath = "ClientApp";
 
             if (env.IsDevelopment())
             {
-                    //spa.UseAngularCliServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
+                //spa.UseAngularCliServer(npmScript: "start");
+                spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
             }
         });
     }

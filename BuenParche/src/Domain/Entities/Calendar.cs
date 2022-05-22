@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace BuenParche.Domain.Entities;
 
-internal class Calendar
+public class Calendar
 {
 }
